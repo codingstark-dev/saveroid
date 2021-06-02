@@ -1,18 +1,39 @@
 import React from 'react';
 import { Meta } from '../../layout/Meta';
 import { Main } from '../../templates/Main';
-import {
-  GetStaticProps,
-  GetStaticPaths,
-  GetServerSideProps,
-  GetServerSidePropsContext,
-} from 'next';
-interface Props {
-  host: string;
-}
-const pinterest = () => {
-  let getPinData = () => {};
-
+import { GetServerSidePropsContext } from 'next';
+import axios, { AxiosRequestConfig } from 'axios';
+let getPinData = (id: string) => {
+  const pinID = id.split('/')[4];
+  var config1: AxiosRequestConfig = {
+    method: 'get',
+    url: 'https://api.saveroid.com/pin',
+    headers: {
+      id: pinID,
+    },
+  };
+  return axios(config1)
+    .then((result) => {
+      if (result.data !== {} && result.data != null && result.data != '') {
+        // console.log(result.data);
+        return result.data;
+        // this.dataUrls = result.data;
+        // this.errorAPi = true;
+        // this.randomNumber = Math.floor(Math.random() * 1000) + 1;
+      } else {
+        alert("Error")
+        // this.dataUrls = result.data;
+        // this.errorAPi = false;
+        // this.randomNumber = Math.floor(Math.random() * 1000) + 1;
+      }
+    })
+    .catch((err) => {
+      console.error(err);
+      alert(err)
+      // this.errorAPi = false;s
+    });
+};
+const pinterest = ({ apidata }: any) => {
   return (
     <>
       <Main
@@ -25,6 +46,14 @@ const pinterest = () => {
         dlform={true}
       >
         <br />
+        <div className="flex justify-center mx-10 items-center content-center m-6">
+          <video
+            src={apidata.video.url}
+            controls
+            className="w-auto rounded-lg shadow-lg focus:outline-transparent "
+          ></video>
+        </div>
+
         <h1 className="font-bold text-2xl">
           Boilerplate code for your Nextjs project with Tailwind CSS
         </h1>
@@ -187,8 +216,9 @@ const pinterest = () => {
   );
 };
 export const getServerSideProps = async (context: GetServerSidePropsContext) => {
-  console.log(context.query.dl);
-  return { props: {} };
+  let apidata: JSON = await getPinData(context.query.dl as string);
+  console.log(context.query.dl, apidata);
+  return { props: { apidata } };
   // ...
 };
 export default pinterest;

@@ -1,13 +1,23 @@
 import React, { FormEvent, useState } from 'react';
+import { useRouter } from 'next/router';
 
 const Dlform = () => {
+  const router = useRouter();
+  let supportedUrl = [
+    { route: 'pinterest-video-downloader', url: ['pinterest.com', 'pin.it'] },
+    { route: 'facebook-video-downloader', url: ['facebook.com', 'fb.com'] },
+  ];
+
   const [Textval, setTextval] = useState('');
 
   let onChange = (e: any) => {
     let text: string = e.target.value;
     setTextval(text);
     console.log('sd', Textval);
-    if (text.length > 10) {
+
+    // console.log(text.includes('pinterest.com'));
+
+    if (text.length < 5) {
       // console.log(text);
       return e.target.setCustomValidity('Please select a date in the past.');
     } else {
@@ -16,7 +26,16 @@ const Dlform = () => {
   };
   let formHandler = (event: FormEvent) => {
     event.preventDefault();
-    console.log(event.target);
+    supportedUrl.map((i, index) => {
+      i.url.map((d) => {
+        if (Textval.includes(d)) {
+          router.push('/tools/' + supportedUrl[index].route + `?dl=${encodeURIComponent(Textval)}`);
+        } else {
+          alert('Wrong Url');
+        }
+        console.log(Textval.includes(d), index);
+      });
+    });
   };
 
   return (
@@ -38,7 +57,7 @@ const Dlform = () => {
             <input
               // oninvalid="this.setCustomValidity('Please Enter Valid Link')"
               // onvalid="this.setCustomValidity('')"
-              
+
               // onInvalid={(e) => {
               //   console.log(e.target.value)
               //   e.target.setCustomValidity('Please agree to the terms and conditions!');
