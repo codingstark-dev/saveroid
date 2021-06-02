@@ -30,9 +30,7 @@ const Dlform = () => {
       i.url.map((d) => {
         if (Textval.includes(d)) {
           router.push('/tools/' + supportedUrl[index].route + `?dl=${encodeURIComponent(Textval)}`);
-        } else {
-          alert('Wrong Url');
-        }
+        } 
         console.log(Textval.includes(d), index);
       });
     });
