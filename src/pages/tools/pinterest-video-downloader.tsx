@@ -1,39 +1,95 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Meta } from '../../layout/Meta';
 import { Main } from '../../templates/Main';
 import { GetServerSidePropsContext } from 'next';
 import axios, { AxiosRequestConfig } from 'axios';
+import { useRouter } from 'next/router';
+
 let getPinData = (id: string) => {
-  const pinID = id.split('/')[4];
-  var config1: AxiosRequestConfig = {
-    method: 'get',
-    url: 'https://api.saveroid.com/pin',
-    headers: {
-      id: pinID,
-    },
-  };
-  return axios(config1)
-    .then((result) => {
-      if (result.data !== {} && result.data != null && result.data != '') {
-        // console.log(result.data);
-        return result.data;
-        // this.dataUrls = result.data;
-        // this.errorAPi = true;
-        // this.randomNumber = Math.floor(Math.random() * 1000) + 1;
-      } else {
-        alert("Error")
-        // this.dataUrls = result.data;
-        // this.errorAPi = false;
-        // this.randomNumber = Math.floor(Math.random() * 1000) + 1;
-      }
-    })
-    .catch((err) => {
-      console.error(err);
-      alert(err)
-      // this.errorAPi = false;s
-    });
+  console.log(id);
+  if (id != undefined) {
+    if (id.includes('pin.it')) {
+      var configExpandUrl: AxiosRequestConfig = {
+        method: 'get',
+        url: 'https://api.saveroid.com/expandurl',
+        headers: {
+          url: id,
+        },
+      };
+      return axios(configExpandUrl)
+        .then((result) => {
+          if (result.data !== {} && result.data != null && result.data != '') {
+            const pinID = result.data.split('/')[4];
+
+            var config1: AxiosRequestConfig = {
+              method: 'get',
+              url: 'https://api.saveroid.com/pin',
+              headers: {
+                id: pinID,
+              },
+            };
+            return axios(config1)
+              .then((result) => {
+                if (result.data !== {} && result.data != null && result.data != '') {
+                  return result.data;
+                } else {
+                }
+              })
+              .catch((err) => {
+                console.error(err);
+              });
+          } else {
+          }
+        })
+        .catch((err) => {
+          console.error(err);
+        });
+    } else if (id.includes('pinterest.com/pin/')) {
+      const pinID = id.split('/')[4];
+      var config10: AxiosRequestConfig = {
+        method: 'get',
+        url: 'https://api.saveroid.com/pin',
+        headers: {
+          id: pinID,
+        },
+      };
+      return axios(config10)
+        .then((result) => {
+          if (result.data !== {} && result.data != null && result.data != '') {
+            // console.log(result.data);
+            return result.data;
+            // this.dataUrls = result.data;
+            // this.errorAPi = true;
+            // this.randomNumber = Math.floor(Math.random() * 1000) + 1;
+          } else {
+            alert('Error');
+            // this.dataUrls = result.data;
+            // this.errorAPi = false;
+            // this.randomNumber = Math.floor(Math.random() * 1000) + 1;
+          }
+        })
+        .catch((err) => {
+          console.error(err);
+          alert(err);
+          // this.errorAPi = false;s
+        });
+    }
+  }
 };
 const pinterest = ({ apidata }: any) => {
+  const [data, setdata]: any = useState(null);
+  const router = useRouter();
+  useEffect(() => {
+    if (router.asPath !== router.route) {
+      if (router.query.dl != undefined) {
+        let fetchMyAPI = async () => {
+          let apidata: JSON = await getPinData(router.query.dl as string);
+          setdata(apidata);
+        };
+        fetchMyAPI();
+      }
+    }
+  }, [router]);
   return (
     <>
       <Main
@@ -46,13 +102,18 @@ const pinterest = ({ apidata }: any) => {
         dlform={true}
       >
         <br />
-        <div className="flex justify-center mx-10 items-center content-center m-6">
-          <video
-            src={apidata.video.url}
-            controls
-            className="w-auto rounded-lg shadow-lg focus:outline-transparent "
-          ></video>
-        </div>
+        {/* <pre>{JSON.stringify(data)}</pre> */}
+        {router.query.dl != undefined ? (
+          <div className="flex justify-center mx-10 items-center content-center m-6">
+            <video
+              src={data?.video.url}
+              controls
+              className="w-auto rounded-lg shadow-lg focus:outline-transparent "
+            ></video>
+          </div>
+        ) : (
+          <></>
+        )}
 
         <h1 className="font-bold text-2xl">
           Boilerplate code for your Nextjs project with Tailwind CSS
@@ -215,10 +276,10 @@ const pinterest = ({ apidata }: any) => {
     </>
   );
 };
-export const getServerSideProps = async (context: GetServerSidePropsContext) => {
-  let apidata: JSON = await getPinData(context.query.dl as string);
-  console.log(context.query.dl, apidata);
-  return { props: { apidata } };
-  // ...
-};
+// export const getServerSideProps = async (context: GetServerSidePropsContext) => {
+//   let apidata: JSON = await getPinData(context.query.dl as string);
+//   console.log(context.query.dl, apidata);
+//   return { props: { apidata } };
+//   // ...
+// };
 export default pinterest;
