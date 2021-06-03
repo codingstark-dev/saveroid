@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Meta } from '../../layout/Meta';
 import { Main } from '../../templates/Main';
-import { GetServerSidePropsContext } from 'next';
+// import { GetServerSidePropsContext } from 'next';
 import axios, { AxiosRequestConfig } from 'axios';
 import { useRouter } from 'next/router';
 
