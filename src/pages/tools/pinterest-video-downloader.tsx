@@ -76,7 +76,7 @@ let getPinData = (id: string) => {
     }
   }
 };
-const pinterest = ({ apidata }: any) => {
+const pinterest = () => {
   const [data, setdata]: any = useState(null);
   const router = useRouter();
   useEffect(() => {
