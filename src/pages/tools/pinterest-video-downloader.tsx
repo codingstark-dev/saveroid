@@ -2,83 +2,93 @@ import React, { useEffect, useState } from 'react';
 import { Meta } from '../../layout/Meta';
 import { Main } from '../../templates/Main';
 // import { GetServerSidePropsContext } from 'next';
+import Loader from '../../componets/Loader';
 import axios, { AxiosRequestConfig } from 'axios';
 import { useRouter } from 'next/router';
 
-let getPinData = (id: string) => {
-  console.log(id);
-  if (id != undefined) {
-    if (id.includes('pin.it')) {
-      var configExpandUrl: AxiosRequestConfig = {
-        method: 'get',
-        url: 'https://api.saveroid.com/expandurl',
-        headers: {
-          url: id,
-        },
-      };
-      return axios(configExpandUrl)
-        .then((result) => {
-          if (result.data !== {} && result.data != null && result.data != '') {
-            const pinID = result.data.split('/')[4];
-
-            var config1: AxiosRequestConfig = {
-              method: 'get',
-              url: 'https://api.saveroid.com/pin',
-              headers: {
-                id: pinID,
-              },
-            };
-            return axios(config1)
-              .then((result) => {
-                if (result.data !== {} && result.data != null && result.data != '') {
-                  return result.data;
-                } else {
-                }
-              })
-              .catch((err) => {
-                console.error(err);
-              });
-          } else {
-          }
-        })
-        .catch((err) => {
-          console.error(err);
-        });
-    } else if (id.includes('pinterest.com/pin/')) {
-      const pinID = id.split('/')[4];
-      var config10: AxiosRequestConfig = {
-        method: 'get',
-        url: 'https://api.saveroid.com/pin',
-        headers: {
-          id: pinID,
-        },
-      };
-      return axios(config10)
-        .then((result) => {
-          if (result.data !== {} && result.data != null && result.data != '') {
-            // console.log(result.data);
-            return result.data;
-            // this.dataUrls = result.data;
-            // this.errorAPi = true;
-            // this.randomNumber = Math.floor(Math.random() * 1000) + 1;
-          } else {
-            alert('Error');
-            // this.dataUrls = result.data;
-            // this.errorAPi = false;
-            // this.randomNumber = Math.floor(Math.random() * 1000) + 1;
-          }
-        })
-        .catch((err) => {
-          console.error(err);
-          alert(err);
-          // this.errorAPi = false;s
-        });
-    }
-  }
-};
 const pinterest = () => {
   const [data, setdata]: any = useState(null);
+  const [Loading, setLoading]: any = useState(false);
+
   const router = useRouter();
+
+  let getPinData = (id: string) => {
+    console.log(id);
+    if (id != undefined) {
+      if (id.includes('pin.it')) {
+        var configExpandUrl: AxiosRequestConfig = {
+          method: 'get',
+          url: 'https://api.saveroid.com/expandurl',
+          headers: {
+            url: id,
+          },
+        };
+        return axios(configExpandUrl)
+          .then((result) => {
+            if (result.data !== {} && result.data != null && result.data != '') {
+              setLoading(true);
+              const pinID = result.data.split('/')[4];
+
+              var config1: AxiosRequestConfig = {
+                method: 'get',
+                url: 'https://api.saveroid.com/pin',
+                headers: {
+                  id: pinID,
+                },
+              };
+              return axios(config1)
+                .then((result) => {
+                  if (result.data !== {} && result.data != null && result.data != '') {
+                    setLoading(false);
+
+                    return result.data;
+                  }
+                })
+                .catch((err) => {
+                  setLoading(false);
+
+                  console.error(err);
+                });
+            }
+          })
+          .catch((err) => {
+            setLoading(false);
+
+            console.error(err);
+          });
+      } else if (id.includes('pinterest.com/pin/')) {
+        const pinID = id.split('/')[4];
+        setLoading(true);
+
+        var config10: AxiosRequestConfig = {
+          method: 'get',
+          url: 'https://api.saveroid.com/pin',
+          headers: {
+            id: pinID,
+          },
+        };
+        return axios(config10)
+          .then((result) => {
+            if (result.data !== {} && result.data != null && result.data != '') {
+              setLoading(false);
+
+              console.log(result.data);
+              return result.data;
+              // this.dataUrls = result.data;
+              // this.errorAPi = true;
+              // this.randomNumber = Math.floor(Math.random() * 1000) + 1;
+            }
+          })
+          .catch((err) => {
+            setLoading(false);
+
+            console.error(err);
+            alert(err);
+            // this.errorAPi = false;s
+          });
+      }
+    }
+  };
   useEffect(() => {
     if (router.asPath !== router.route) {
       if (router.query.dl != undefined) {
@@ -100,10 +110,13 @@ const pinterest = () => {
           />
         }
         dlform={true}
+        defaultValue={router.query.dl != undefined ? (router.query.dl as string) : ('' as string)}
       >
         <br />
         {/* <pre>{JSON.stringify(data)}</pre> */}
-        {router.query.dl != undefined ? (
+        {Loading ? <Loader /> : <></>}
+
+        {router.query.dl != undefined && data?.video != undefined ? (
           <div className="flex justify-center mx-10 items-center content-center m-6">
             <video
               src={data?.video.url}

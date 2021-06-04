@@ -10,6 +10,7 @@ module.exports = withBundleAnalyzer({
   basePath: baseUrl,
   env: {
     baseUrl: baseUrl,
+    BASE_URL: 'https://api.saveroid.com/',
   },
   future: {
     webpack5: true,

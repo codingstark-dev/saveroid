@@ -10,13 +10,14 @@ type IMainProps = {
   meta: ReactNode;
   children: ReactNode;
   dlform?: boolean;
+  defaultValue?: string;
 };
 
 const Main = (props: IMainProps) => (
   <div className="antialiased w-full text-gray-700">
     {props.meta}
     <NavBar></NavBar>
-    {props.dlform ? <Dlform></Dlform> : <></>}
+    {props.dlform ? <Dlform defaultValue={props.defaultValue as string}></Dlform> : <></>}
     <div className="max-w-screen-md mx-auto">
       <div className="border-b border-gray-300">
         {/* <div className="pt-16 pb-8">

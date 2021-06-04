@@ -1,7 +1,10 @@
-import React, { FormEvent, useState } from 'react';
+import React, { FormEvent, useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 
-const Dlform = () => {
+type defautlProps = {
+  defaultValue?: string;
+};
+const Dlform = (props: defautlProps) => {
   const router = useRouter();
   let supportedUrl = [
     { route: 'pinterest-video-downloader', url: ['pinterest.com', 'pin.it'] },
@@ -9,12 +12,14 @@ const Dlform = () => {
   ];
 
   const [Textval, setTextval] = useState('');
-
+  useEffect(() => {
+    setTextval(props.defaultValue as string);
+    console.log(props.defaultValue);
+  }, [props.defaultValue]);
   let onChange = (e: any) => {
     let text: string = e.target.value;
     setTextval(text);
-    console.log('sd', Textval);
-
+    console.log('sd', Textval, props.defaultValue);
     // console.log(text.includes('pinterest.com'));
 
     if (text.length < 5) {
@@ -30,7 +35,7 @@ const Dlform = () => {
       i.url.map((d) => {
         if (Textval.includes(d)) {
           router.push('/tools/' + supportedUrl[index].route + `?dl=${encodeURIComponent(Textval)}`);
-        } 
+        }
         console.log(Textval.includes(d), index);
       });
     });
@@ -60,7 +65,8 @@ const Dlform = () => {
               //   console.log(e.target.value)
               //   e.target.setCustomValidity('Please agree to the terms and conditions!');
               // }}
-              type="text"
+              type="text" 
+              value={Textval}
               // onInvalid={formOnInvalidHandler}
               // v-on:input="updateValue($event.target.value)"
               // onchange="this.setCustomValidity('')"
