@@ -15,9 +15,7 @@ const Index = () => {
         dlform={true}
       >
         <br />
-        <h1 className="font-bold text-2xl">
-          Boilerplate code for your Nextjs project with Tailwind CSS
-        </h1>
+        
        
       </Main>
     </>

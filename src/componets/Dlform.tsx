@@ -7,6 +7,7 @@ type defautlProps = {
 const Dlform = (props: defautlProps) => {
   const router = useRouter();
   let supportedUrl = [
+    
     { route: 'pinterest-video-downloader', url: ['pinterest.com', 'pin.it'] },
     { route: 'facebook-video-downloader', url: ['facebook.com', 'fb.com'] },
   ];

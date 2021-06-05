@@ -5,7 +5,7 @@ import { Main } from '../../templates/Main';
 import Loader from '../../componets/Loader';
 import axios, { AxiosRequestConfig } from 'axios';
 import { useRouter } from 'next/router';
-
+import Link from 'next/link';
 const pinterest = () => {
   const [data, setdata]: any = useState(null);
   const [Loading, setLoading]: any = useState(false);
@@ -100,6 +100,58 @@ const pinterest = () => {
       }
     }
   }, [router]);
+  let videoData =
+    data?.video?.length != undefined && data?.video.length == 0 ? (
+      data?.video.map((e: any, i: number) => {
+        return (
+          <div key={i}>
+            <div className="flex justify-center mx-10 items-center content-center m-6">
+              <video
+                src={e.url}
+                controls
+                className="w-auto rounded-lg shadow-lg focus:outline-transparent "
+              ></video>
+            </div>
+            <div className="mx-5 mb-2">
+              <Link href={`https://api.saveroid.com/download?mode=video&url=${e.url}`}>
+                <button
+                  type="submit"
+                  className="focus:outline-transparent items-center font-medium text-red-500 w-full text-center  p-1 h-12  outline-transparent bg-white border-4 rounded-2xl border-red-400  mx-2 text-md hover:bg-red-500 hover:text-white"
+                >
+                  Download Video In HD
+                </button>
+              </Link>
+            </div>
+          </div>
+        );
+      })
+    ) : (
+      <></>
+    );
+  let imageData =
+    data?.image?.length != undefined && data?.image.length == 0 ? (
+      data?.image.map((e: any, index: number) => {
+        return (
+          <div key={index}>
+            <div className="flex justify-center mx-10 items-center content-center m-6">
+              <img src={e.url} className="w-auto rounded-lg shadow-lg focus:outline-transparent " />
+            </div>
+            <div className="mx-5">
+              <Link href={`https://api.saveroid.com/download?mode=image&url=${e.url}`}>
+                <button
+                  type="submit"
+                  className="focus:outline-transparent items-center font-medium text-red-500 w-full text-center  p-1 h-12  outline-transparent bg-white border-4 rounded-2xl border-red-400  mx-2 text-md hover:bg-red-500 hover:text-white"
+                >
+                  Download Image In HD{' '}
+                </button>
+              </Link>
+            </div>
+          </div>
+        );
+      })
+    ) : (
+      <></>
+    );
   return (
     <>
       <Main
@@ -115,204 +167,102 @@ const pinterest = () => {
         <br />
         {/* <pre>{JSON.stringify(data)}</pre> */}
         {Loading ? <Loader /> : <></>}
-        <div className="flex justify-center mx-10 items-center content-center m-6">
-          {router.query.dl != undefined &&
+
+        {router.query.dl != undefined &&
+        data?.video?.length != 0 &&
+        data?.video?.length != undefined &&
+        data?.image?.length != 0 &&
+        data?.image?.length != undefined ? (
+          <div>
+            <div>{videoData}</div>
+            <div>{imageData}</div>
+          </div>
+        ) : router.query.dl != undefined &&
           data?.video?.length != 0 &&
           data?.video?.length != undefined ? (
-            data.video.map((e: any, index: number) => {
-              return (
-                <video key={index}
+          data.video.map((e: any, index: number) => {
+            return (
+              <div className="flex justify-center mx-10 items-center content-center m-6">
+                <video
+                  key={index}
                   src={e.url}
                   controls
                   className="w-auto rounded-lg shadow-lg focus:outline-transparent "
                 ></video>
-              );
-            })
-          ) : router.query.dl != undefined &&
-            data?.image?.length != 0 &&
-            data?.image?.length != undefined ? (
-            data.image.map((e: any, index: number) => {
-              return (
-                <img
-                  key={index}
-                  src={e.url}
-                  className="w-auto rounded-lg shadow-lg focus:outline-transparent "
-                />
-              );
-            })
-          ) : router.query.dl != undefined && data?.video != undefined ? (
-            <video
-              src={data?.video.url}
-              controls
-              className="w-auto rounded-lg shadow-lg focus:outline-transparent "
-            ></video>
-          ) : router.query.dl != undefined && data?.image != undefined ? (
-            <img
-              src={data.image.url}
-              className="w-auto rounded-lg shadow-lg focus:outline-transparent "
-            />
-          ) : (
-            <></>
-          )}
-        </div>
+                <Link href={`https://api.saveroid.com/download?mode=video&url=${e.url}`}>
+                  <button
+                    type="submit"
+                    className="focus:outline-transparent items-center font-medium text-red-500 w-full text-center  p-1 h-12  outline-transparent bg-white border-4 rounded-2xl border-red-400  mx-2 text-md hover:bg-red-500 hover:text-white"
+                  >
+                    Download Video In HD{' '}
+                  </button>
+                </Link>
+              </div>
+            );
+          })
+        ) : router.query.dl != undefined &&
+          data?.image?.length != 0 &&
+          data?.image?.length != undefined ? (
+          data.image.map((e: any, index: number) => {
+            return (
+              <div>
+                <div className="flex justify-center mx-10 items-center content-center m-6">
+                  <img
+                    key={index}
+                    src={e.url}
+                    className="w-auto rounded-lg shadow-lg focus:outline-transparent "
+                  />{' '}
+                </div>{' '}
+                <Link href={`https://api.saveroid.com/download?mode=image&url=${e.url}`}>
+                  <button
+                    type="submit"
+                    className="focus:outline-transparent items-center font-medium text-red-500 w-full text-center  p-1 h-12  outline-transparent bg-white border-4 rounded-2xl border-red-400  mx-2 text-md hover:bg-red-500 hover:text-white"
+                  >
+                    Download Image In HD{' '}
+                  </button>
+                </Link>
+              </div>
+            );
+          })
+        ) : router.query.dl != undefined && data?.video != undefined ? (
+          <div>
+            <div className="flex justify-center mx-10 items-center content-center m-6">
+              <video
+                src={data?.video.url}
+                controls
+                className="w-auto rounded-lg shadow-lg focus:outline-transparent "
+              ></video>
+            </div>
+            <Link href={`https://api.saveroid.com/download?mode=video&url=${data?.video.url}`}>
+              <button
+                type="submit"
+                className="focus:outline-transparent items-center font-medium text-red-500 w-full text-center  p-1 h-12  outline-transparent bg-white border-4 rounded-2xl border-red-400  mx-2 text-md hover:bg-red-500 hover:text-white"
+              >
+                Download Video In HD{' '}
+              </button>
+            </Link>
+          </div>
+        ) : router.query.dl != undefined && data?.image != undefined ? (
+          <div>
+            <div className="flex justify-center mx-10 items-center content-center m-6">
+              <img
+                src={data.image.url}
+                className="w-auto rounded-lg shadow-lg focus:outline-transparent "
+              />
+            </div>{' '}
+            <Link href={`https://api.saveroid.com/download?mode=image&url=${data?.video.url}`}>
+              <button
+                type="submit"
+                className="focus:outline-transparent items-center font-medium text-red-500 w-full text-center  p-1 h-12  outline-transparent bg-white border-4 rounded-2xl border-red-400  mx-2 text-md hover:bg-red-500 hover:text-white"
+              >
+                Download Image In HD{' '}
+              </button>
+            </Link>
+          </div>
+        ) : (
+          <></>
+        )}
 
-        <h1 className="font-bold text-2xl">
-          Boilerplate code for your Nextjs project with Tailwind CSS
-        </h1>
-        <p>
-          <span role="img" aria-label="rocket">
-            🚀
-          </span>{' '}
-          Next.js Boilerplate is a starter code for your Next js project by putting developer
-          experience first .{' '}
-          <span role="img" aria-label="zap">
-            ⚡️
-          </span>{' '}
-          Made with{' '}
-          <a href="https://nextjs.org" rel="nofollow">
-            Next.js
-          </a>
-          ,{' '}
-          <a href="https://eslint.org" rel="nofollow">
-            ESLint
-          </a>
-          ,{' '}
-          <a href="https://prettier.io" rel="nofollow">
-            Prettier
-          </a>
-          ,{' '}
-          <a href="https://postcss.org" rel="nofollow">
-            PostCSS
-          </a>
-          ,{' '}
-          <a href="https://tailwindcss.com" rel="nofollow">
-            Tailwind CSS
-          </a>
-          .
-        </p>
-        <h2 className="font-semibold text-lg">Next js Boilerplate Features</h2>
-        <p>Developer experience first:</p>
-        <ul>
-          <li>
-            <span role="img" aria-label="fire">
-              🔥
-            </span>{' '}
-            <a href="https://nextjs.org" rel="nofollow">
-              Next.js
-            </a>{' '}
-            for Static Site Generator
-          </li>
-          <li>
-            <span role="img" aria-label="art">
-              🎨
-            </span>{' '}
-            Integrate with{' '}
-            <a href="https://tailwindcss.com" rel="nofollow">
-              Tailwind CSS
-            </a>
-          </li>
-          <li>
-            <span role="img" aria-label="nail_care">
-              💅
-            </span>{' '}
-            <a href="https://postcss.org" rel="nofollow">
-              PostCSS
-            </a>{' '}
-            for processing{' '}
-            <a href="https://tailwindcss.com" rel="nofollow">
-              Tailwind CSS
-            </a>
-          </li>
-          <li>
-            <span role="img" aria-label="tada">
-              🎉
-            </span>{' '}
-            Type checking Typescript
-          </li>
-          <li>
-            <span role="img" aria-label="pencil2">
-              ✏️
-            </span>{' '}
-            Linter with{' '}
-            <a href="https://eslint.org" rel="nofollow">
-              ESLint
-            </a>
-          </li>
-          <li>
-            <span role="img" aria-label="hammer_and_wrench">
-              🛠
-            </span>{' '}
-            Code Formatter with{' '}
-            <a href="https://prettier.io" rel="nofollow">
-              Prettier
-            </a>
-          </li>
-          <li>
-            <span role="img" aria-label="fox_face">
-              🦊
-            </span>{' '}
-            SEO metadata,{' '}
-            <a
-              href="https://developers.google.com/search/docs/guides/intro-structured-data"
-              rel="nofollow"
-            >
-              JSON-LD
-            </a>{' '}
-            and{' '}
-            <a href="https://ogp.me/" rel="nofollow">
-              Open Graph
-            </a>{' '}
-            tags with <a href="https://github.com/garmeeh/next-seo">Next SEO</a>
-          </li>
-          <li>
-            <span role="img" aria-label="rainbow">
-              🌈
-            </span>{' '}
-            Include a FREE minimalist theme
-          </li>
-          <li>
-            <span role="img" aria-label="hundred">
-              💯
-            </span>{' '}
-            Maximize lighthouse score
-          </li>
-        </ul>
-        <p>Built-in feature from Next.js:</p>
-        <ul>
-          <li>
-            <span role="img" aria-label="coffee">
-              ☕
-            </span>{' '}
-            Minify HTML &amp; CSS
-          </li>
-          <li>
-            <span role="img" aria-label="dash">
-              💨
-            </span>{' '}
-            Live reload
-          </li>
-          <li>
-            <span role="img" aria-label="white_check_mark">
-              ✅
-            </span>{' '}
-            Cache busting
-          </li>
-        </ul>
-        <h2 className="font-semibold text-lg">Our Stater code Philosophy</h2>
-        <ul>
-          <li>Minimal code</li>
-          <li>SEO-friendly</li>
-          <li>
-            <span role="img" aria-label="rocket">
-              🚀
-            </span>{' '}
-            Production-ready
-          </li>
-        </ul>
-        <p>
-          Check our GitHub project for more information about{' '}
-          <a href="https://github.com/ixartz/Next-js-Boilerplate">Nextjs Boilerplate</a>.
-        </p>
       </Main>
     </>
   );
