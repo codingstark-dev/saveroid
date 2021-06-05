@@ -14,12 +14,10 @@ const Dlform = (props: defautlProps) => {
   const [Textval, setTextval] = useState('');
   useEffect(() => {
     setTextval(props.defaultValue as string);
-    console.log(props.defaultValue);
   }, [props.defaultValue]);
   let onChange = (e: any) => {
     let text: string = e.target.value;
     setTextval(text);
-    console.log('sd', Textval, props.defaultValue);
     // console.log(text.includes('pinterest.com'));
 
     if (text.length < 5) {
@@ -65,8 +63,8 @@ const Dlform = (props: defautlProps) => {
               //   console.log(e.target.value)
               //   e.target.setCustomValidity('Please agree to the terms and conditions!');
               // }}
-              type="text" 
-              value={Textval}
+              type="text"
+              value={Textval == undefined ? '' : Textval}
               // onInvalid={formOnInvalidHandler}
               // v-on:input="updateValue($event.target.value)"
               // onchange="this.setCustomValidity('')"

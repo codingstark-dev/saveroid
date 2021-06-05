@@ -115,18 +115,46 @@ const pinterest = () => {
         <br />
         {/* <pre>{JSON.stringify(data)}</pre> */}
         {Loading ? <Loader /> : <></>}
-
-        {router.query.dl != undefined && data?.video != undefined ? (
-          <div className="flex justify-center mx-10 items-center content-center m-6">
+        <div className="flex justify-center mx-10 items-center content-center m-6">
+          {router.query.dl != undefined &&
+          data?.video?.length != 0 &&
+          data?.video?.length != undefined ? (
+            data.video.map((e: any, index: number) => {
+              return (
+                <video key={index}
+                  src={e.url}
+                  controls
+                  className="w-auto rounded-lg shadow-lg focus:outline-transparent "
+                ></video>
+              );
+            })
+          ) : router.query.dl != undefined &&
+            data?.image?.length != 0 &&
+            data?.image?.length != undefined ? (
+            data.image.map((e: any, index: number) => {
+              return (
+                <img
+                  key={index}
+                  src={e.url}
+                  className="w-auto rounded-lg shadow-lg focus:outline-transparent "
+                />
+              );
+            })
+          ) : router.query.dl != undefined && data?.video != undefined ? (
             <video
               src={data?.video.url}
               controls
               className="w-auto rounded-lg shadow-lg focus:outline-transparent "
             ></video>
-          </div>
-        ) : (
-          <></>
-        )}
+          ) : router.query.dl != undefined && data?.image != undefined ? (
+            <img
+              src={data.image.url}
+              className="w-auto rounded-lg shadow-lg focus:outline-transparent "
+            />
+          ) : (
+            <></>
+          )}
+        </div>
 
         <h1 className="font-bold text-2xl">
           Boilerplate code for your Nextjs project with Tailwind CSS
