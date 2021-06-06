@@ -7,8 +7,7 @@ type defautlProps = {
 const Dlform = (props: defautlProps) => {
   const router = useRouter();
   let supportedUrl = [
-    
-    { route: 'pinterest-video-downloader', url: ['pinterest.com', 'pin.it'] },
+    { route: 'pinterest-video-downloader', url: ['pinterest.com/pin', 'pin.it'] },
     { route: 'facebook-video-downloader', url: ['facebook.com', 'fb.com'] },
   ];
 
@@ -20,22 +19,41 @@ const Dlform = (props: defautlProps) => {
     let text: string = e.target.value;
     setTextval(text);
     // console.log(text.includes('pinterest.com'));
-
-    if (text.length < 5) {
+    let regexp =
+      /^(?:(?:https?|ftp):\/\/)?(?:(?!(?:10|127)(?:\.\d{1,3}){3})(?!(?:169\.254|192\.168)(?:\.\d{1,3}){2})(?!172\.(?:1[6-9]|2\d|3[0-1])(?:\.\d{1,3}){2})(?:[1-9]\d?|1\d\d|2[01]\d|22[0-3])(?:\.(?:1?\d{1,2}|2[0-4]\d|25[0-5])){2}(?:\.(?:[1-9]\d?|1\d\d|2[0-4]\d|25[0-4]))|(?:(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)(?:\.(?:[a-z\u00a1-\uffff0-9]-*)*[a-z\u00a1-\uffff0-9]+)*(?:\.(?:[a-z\u00a1-\uffff]{2,})))(?::\d{2,5})?(?:\/\S*)?$/;
+    if (regexp.test(text)) {
       // console.log(text);
-      return e.target.setCustomValidity('Please select a date in the past.');
+      return e.target.setCustomValidity('');
     } else {
-      e.target.setCustomValidity('');
+      return e.target.setCustomValidity('Please enter a valid url');
     }
   };
+  let bool: Array<boolean> = [];
+  let indexsint: number = 0;
   let formHandler = (event: FormEvent) => {
     event.preventDefault();
     supportedUrl.map((i, index) => {
       i.url.map((d) => {
-        if (Textval.includes(d)) {
+        bool.push(Textval?.includes(d));
+        indexsint++;
+        // console.log(bool.filter((e) => e === true).length === 1);
+        // switch (Textval.includes(d)) {
+        //   case true:
+        //     router.push(
+        //       '/tools/' + supportedUrl[index].route + `?dl=${encodeURIComponent(Textval)}`
+        //     );
+        //     break;
+        //   case false:
+        //     router.push('/invalid-url' + `?dl=${encodeURIComponent(Textval)}`);
+        //     break;
+        //   default:
+        //     break;
+        // }
+        if (Textval?.includes(d)) {
           router.push('/tools/' + supportedUrl[index].route + `?dl=${encodeURIComponent(Textval)}`);
+        } else if (bool.filter((e) => e === false).length === indexsint) {
+          router.push('/invalid-url' + `?dl=${encodeURIComponent(Textval)}`);
         }
-        console.log(Textval.includes(d), index);
       });
     });
   };

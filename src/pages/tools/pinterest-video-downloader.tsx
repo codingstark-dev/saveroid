@@ -100,58 +100,7 @@ const pinterest = () => {
       }
     }
   }, [router]);
-  let videoData =
-    data?.video?.length != undefined && data?.video.length == 0 ? (
-      data?.video.map((e: any, i: number) => {
-        return (
-          <div key={i}>
-            <div className="flex justify-center mx-10 items-center content-center m-6">
-              <video
-                src={e.url}
-                controls
-                className="w-auto rounded-lg shadow-lg focus:outline-transparent "
-              ></video>
-            </div>
-            <div className="mx-5">
-              <Link href={`https://api.saveroid.com/download?mode=video&url=${e.url}`}>
-                <button
-                  type="submit"
-                  className="focus:outline-transparent items-center font-medium text-red-500 w-full text-center  p-1 h-12  outline-transparent bg-white border-4 rounded-2xl border-red-400  mx-2 text-md hover:bg-red-500 hover:text-white"
-                >
-                  Download Video In HD
-                </button>
-              </Link>
-            </div>
-          </div>
-        );
-      })
-    ) : (
-      <></>
-    );
-  let imageData =
-    data?.image?.length != undefined && data?.image.length == 0 ? (
-      data?.image.map((e: any, index: number) => {
-        return (
-          <div key={index}>
-            <div className="flex justify-center mx-10 items-center content-center m-6">
-              <img src={e.url} className="w-auto rounded-lg shadow-lg focus:outline-transparent " />
-            </div>
-            <div className="mx-5">
-              <Link href={`https://api.saveroid.com/download?mode=image&url=${e.url}`}>
-                <button
-                  type="submit"
-                  className="focus:outline-transparent items-center font-medium text-red-500 w-full text-center  p-1 h-12  outline-transparent bg-white border-4 rounded-2xl border-red-400  mx-2 text-md hover:bg-red-500 hover:text-white"
-                >
-                  Download Image In HD{' '}
-                </button>
-              </Link>
-            </div>
-          </div>
-        );
-      })
-    ) : (
-      <></>
-    );
+
   return (
     <>
       <Main
@@ -174,19 +123,64 @@ const pinterest = () => {
         data?.image?.length != 0 &&
         data?.image?.length != undefined ? (
           <div>
-            <div>{videoData}</div>
-            <div>{imageData}</div>
+            <div>
+              {data.video.map((e: any, i: number) => {
+                return (
+                  <div key={i}>
+                    <div className="flex justify-center mx-10 items-center content-center m-6">
+                      <video
+                        src={e.url}
+                        controls
+                        className="w-auto rounded-lg shadow-lg focus:outline-transparent "
+                      ></video>
+                    </div>
+                    <div className="mx-5">
+                      <Link href={`https://api.saveroid.com/download?mode=video&url=${e.url}`}>
+                        <button
+                          type="submit"
+                          className="focus:outline-transparent items-center font-medium text-red-500 w-full text-center  p-1 h-12  outline-transparent bg-white border-4 rounded-2xl border-red-400  text-md hover:bg-red-500 hover:text-white"
+                        >
+                          Download Video In HD
+                        </button>
+                      </Link>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+            <div>
+              {data?.image.map((e: any, index: number) => {
+                return (
+                  <div key={index}>
+                    <div className="flex justify-center mx-10 items-center content-center m-6">
+                      <img
+                        src={e.url}
+                        className="w-auto rounded-lg shadow-lg focus:outline-transparent "
+                      />
+                    </div>
+                    <div className="mx-5">
+                      <Link href={`https://api.saveroid.com/download?mode=image&url=${e.url}`}>
+                        <button
+                          type="submit"
+                          className="focus:outline-transparent items-center font-medium text-red-500 w-full text-center  p-1 h-12  outline-transparent bg-white border-4 rounded-2xl border-red-400  text-md hover:bg-red-500 hover:text-white"
+                        >
+                          Download Image In HD{' '}
+                        </button>
+                      </Link>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
           </div>
         ) : router.query.dl != undefined &&
           data?.video?.length != 0 &&
           data?.video?.length != undefined ? (
           data.video.map((e: any, index: number) => {
             return (
-              <div>
-                {' '}
+              <div key={index}>
                 <div className="flex justify-center mx-10 items-center content-center m-6">
                   <video
-                    key={index}
                     src={e.url}
                     controls
                     className="w-auto rounded-lg shadow-lg focus:outline-transparent "
@@ -196,7 +190,7 @@ const pinterest = () => {
                   <Link href={`https://api.saveroid.com/download?mode=video&url=${e.url}`}>
                     <button
                       type="submit"
-                      className="focus:outline-transparent items-center font-medium text-red-500 w-full text-center  p-1 h-12  outline-transparent bg-white border-4 rounded-2xl border-red-400  mx-2 text-md hover:bg-red-500 hover:text-white"
+                      className="focus:outline-transparent items-center font-medium text-red-500 w-full text-center  p-1 h-12  outline-transparent bg-white border-4 rounded-2xl border-red-400  text-md hover:bg-red-500 hover:text-white"
                     >
                       Download Video In HD{' '}
                     </button>
@@ -222,7 +216,7 @@ const pinterest = () => {
                   <Link href={`https://api.saveroid.com/download?mode=image&url=${e.url}`}>
                     <button
                       type="submit"
-                      className="focus:outline-transparent items-center font-medium text-red-500 w-full text-center  p-1 h-12  outline-transparent bg-white border-4 rounded-2xl border-red-400  mx-2 text-md hover:bg-red-500 hover:text-white"
+                      className="focus:outline-transparent items-center font-medium text-red-500 w-full text-center  p-1 h-12  outline-transparent bg-white border-4 rounded-2xl border-red-400  text-md hover:bg-red-500 hover:text-white"
                     >
                       Download Image In HD{' '}
                     </button>
@@ -244,7 +238,7 @@ const pinterest = () => {
               <Link href={`https://api.saveroid.com/download?mode=video&url=${data?.video.url}`}>
                 <button
                   type="submit"
-                  className="focus:outline-transparent items-center font-medium text-red-500 w-full text-center  p-1 h-12  outline-transparent bg-white border-4 rounded-2xl border-red-400  mx-2 text-md hover:bg-red-500 hover:text-white"
+                  className="focus:outline-transparent items-center font-medium text-red-500 w-full text-center  p-1 h-12  outline-transparent bg-white border-4 rounded-2xl border-red-400  text-md hover:bg-red-500 hover:text-white"
                 >
                   Download Video In HD{' '}
                 </button>
@@ -263,7 +257,7 @@ const pinterest = () => {
               <Link href={`https://api.saveroid.com/download?mode=image&url=${data?.video.url}`}>
                 <button
                   type="submit"
-                  className="focus:outline-transparent items-center font-medium text-red-500 w-full text-center  p-1 h-12  outline-transparent bg-white border-4 rounded-2xl border-red-400  mx-2 text-md hover:bg-red-500 hover:text-white"
+                  className="focus:outline-transparent items-center font-medium text-red-500 w-full text-center  p-1 h-12  outline-transparent bg-white border-4 rounded-2xl border-red-400  text-md hover:bg-red-500 hover:text-white"
                 >
                   Download Image In HD{' '}
                 </button>
