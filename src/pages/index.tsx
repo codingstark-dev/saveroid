@@ -1,4 +1,5 @@
 import React from 'react';
+import AbSites from '../componets/AbSites';
 
 import { Meta } from '../layout/Meta';
 import { Main } from '../templates/Main';
@@ -15,8 +16,7 @@ const Index = () => {
         dlform={true}
       >
         <br />
-        
-       
+        <AbSites></AbSites>
       </Main>
     </>
   );

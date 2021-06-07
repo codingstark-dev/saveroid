@@ -52,7 +52,7 @@ const Dlform = (props: defautlProps) => {
         if (Textval?.includes(d)) {
           router.push('/tools/' + supportedUrl[index].route + `?dl=${encodeURIComponent(Textval)}`);
         } else if (bool.filter((e) => e === false).length === indexsint) {
-          router.push('/invalid-url' + `?dl=${encodeURIComponent(Textval)}`);
+          router.push('/invalid-url' + `?url=${encodeURIComponent(Textval)}`);
         }
       });
     });
@@ -62,7 +62,9 @@ const Dlform = (props: defautlProps) => {
     <>
       <div className="bg-gradient-to-r from-red-500 to-red-700 h-auto pt-16 ">
         <div className=" max-w-2xl mx-auto">
-          <h1 className="text-4xl text-center  font-semibold text-white  pt-3">headLine</h1>
+          <h1 className="text-4xl text-center  font-semibold text-white  pt-3">
+            All in One Video Downloader
+          </h1>
           <h2 className=" text-center  font-medium text-white  pb-3 text-base">
             Download Pinterest video, Image and Gif online
           </h2>

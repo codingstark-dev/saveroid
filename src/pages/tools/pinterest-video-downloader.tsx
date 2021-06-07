@@ -13,7 +13,6 @@ const pinterest = () => {
   const router = useRouter();
 
   let getPinData = (id: string) => {
-    console.log(id);
     if (id != undefined) {
       if (id.includes('pin.it')) {
         var configExpandUrl: AxiosRequestConfig = {
@@ -25,7 +24,7 @@ const pinterest = () => {
         };
         return axios(configExpandUrl)
           .then((result) => {
-            if (result.data !== {} && result.data != null && result.data != '') {
+            if (JSON.stringify(result.data) !== '{}' && result.data != null && result.data != '') {
               setLoading(true);
               const pinID = result.data.split('/')[4];
 
@@ -38,10 +37,17 @@ const pinterest = () => {
               };
               return axios(config1)
                 .then((result) => {
-                  if (result.data !== {} && result.data != null && result.data != '') {
+                  if (
+                    JSON.stringify(result.data) !== '{}' &&
+                    result.data != null &&
+                    result.data != ''
+                  ) {
                     setLoading(false);
 
                     return result.data;
+                  } else {
+                    setLoading(false);
+                    router.push('/invalid-url' + `?url=${id}`);
                   }
                 })
                 .catch((err) => {
@@ -69,14 +75,17 @@ const pinterest = () => {
         };
         return axios(config10)
           .then((result) => {
-            if (result.data !== {} && result.data != null && result.data != '') {
+            if (JSON.stringify(result.data) !== '{}' && result.data != null && result.data != '') {
               setLoading(false);
 
-              console.log(result.data);
+              console.log(JSON.stringify(result.data) !== '{}');
               return result.data;
               // this.dataUrls = result.data;
               // this.errorAPi = true;
               // this.randomNumber = Math.floor(Math.random() * 1000) + 1;
+            } else {
+              setLoading(false);
+              router.push('/invalid-url' + `?url=${id}`);
             }
           })
           .catch((err) => {
@@ -86,6 +95,8 @@ const pinterest = () => {
             alert(err);
             // this.errorAPi = false;s
           });
+      } else {
+        router.push('/invalid-url' + `?url=${id}`);
       }
     }
   };
