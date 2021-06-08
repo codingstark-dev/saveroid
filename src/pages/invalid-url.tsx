@@ -16,6 +16,8 @@ const invalid = () => {
           />
         }
         dlform={true}
+        title="All in One Video Downloader"
+        subtitle="Download video, Image and Gif online"
       >
         <br />
         <div

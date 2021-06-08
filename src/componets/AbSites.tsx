@@ -7,7 +7,7 @@ const AbSites = () => {
         <hr className="w-10 m-auto" />
         <h1 className="text-2xl px-2 text-current items-center font-medium">
           <span className="tracking-wide">【</span>
-          <span className="text-red-500 tracking-wide"> Available </span>
+          <span className="text-red-500 tracking-wide"> Supported </span>
           <span>Sites </span>
           <span className="tracking-wide text-red-500">】</span>
         </h1>

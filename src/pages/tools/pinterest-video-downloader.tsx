@@ -122,6 +122,8 @@ const pinterest = () => {
           />
         }
         dlform={true}
+        title="Pinterest Video Downloader 2021"
+        subtitle="Download Pinterest video, Image, Gif online and Pinterest Story Downloader"
         defaultValue={router.query.dl != undefined ? (router.query.dl as string) : ('' as string)}
       >
         <br />

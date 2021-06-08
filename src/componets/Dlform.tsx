@@ -3,6 +3,8 @@ import { useRouter } from 'next/router';
 
 type defautlProps = {
   defaultValue?: string;
+  title: string;
+  subtitle: string;
 };
 const Dlform = (props: defautlProps) => {
   const router = useRouter();
@@ -10,11 +12,19 @@ const Dlform = (props: defautlProps) => {
     { route: 'pinterest-video-downloader', url: ['pinterest.com/pin', 'pin.it'] },
     { route: 'facebook-video-downloader', url: ['facebook.com', 'fb.com'] },
   ];
-
+  // const [index, setIndex] = useState(0);
+  // const TEXTS = ['Forest', 'Building', 'Tree', 'Color'];
   const [Textval, setTextval] = useState('');
   useEffect(() => {
     setTextval(props.defaultValue as string);
   }, [props.defaultValue]);
+  // useEffect(() => {
+  //   const intervalId = setInterval(
+  //     () => setIndex((index) => index + 1),
+  //     3000 // every 3 seconds
+  //   );
+  //   return () => clearTimeout(intervalId);
+  // }, []);
   let onChange = (e: any) => {
     let text: string = e.target.value;
     setTextval(text);
@@ -62,11 +72,9 @@ const Dlform = (props: defautlProps) => {
     <>
       <div className="bg-gradient-to-r from-red-500 to-red-700 h-auto pt-16 ">
         <div className=" max-w-2xl mx-auto">
-          <h1 className="text-4xl text-center  font-semibold text-white  pt-3">
-            All in One Video Downloader
-          </h1>
+          <h1 className="text-4xl text-center  font-semibold text-white  pt-3">{props.title} </h1>
           <h2 className=" text-center  font-medium text-white  pb-3 text-base">
-            Download Pinterest video, Image and Gif online
+            {props.subtitle}{' '}
           </h2>
 
           <form
@@ -90,7 +98,8 @@ const Dlform = (props: defautlProps) => {
               // v-on:input="updateValue($event.target.value)"
               // onchange="this.setCustomValidity('')"
               onChange={onChange}
-              placeholder="Enter Pinterest Link"
+              placeholder="Paste Link Here!"
+              // placeholder={'Enter Pinterest Link' + TEXTS[index % TEXTS.length]}
               className="focus:outline-none items-center w-full  m-0 p-4 h-12  outline-transparent bg-white border-4 rounded-2xl border-red-400 text-base "
             />
             <button
