@@ -267,7 +267,7 @@ const pinterest = () => {
               />
             </div>{' '}
             <div className="mx-5">
-              <Link href={`https://api.saveroid.com/download?mode=image&url=${data?.video.url}`}>
+              <Link href={`https://api.saveroid.com/download?mode=image&url=${data?.image.url}`}>
                 <button
                   type="submit"
                   className="focus:outline-transparent items-center font-medium text-red-500 w-full text-center  p-1 h-12  outline-transparent bg-white border-4 rounded-2xl border-red-400  text-md hover:bg-red-500 hover:text-white"
