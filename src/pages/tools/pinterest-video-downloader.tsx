@@ -78,7 +78,7 @@ const pinterest = () => {
             if (JSON.stringify(result.data) !== '{}' && result.data != null && result.data != '') {
               setLoading(false);
 
-              console.log(JSON.stringify(result.data) !== '{}');
+              // console.log(JSON.stringify(result.data) !== '{}');
               return result.data;
               // this.dataUrls = result.data;
               // this.errorAPi = true;
@@ -217,10 +217,10 @@ const pinterest = () => {
           data?.image?.length != undefined ? (
           data.image.map((e: any, index: number) => {
             return (
-              <div>
+              <div key={index}>
                 <div className="flex justify-center mx-10 items-center content-center m-6">
                   <img
-                    key={index}
+                    
                     src={e.url}
                     className="w-auto rounded-lg shadow-lg focus:outline-transparent "
                   />{' '}

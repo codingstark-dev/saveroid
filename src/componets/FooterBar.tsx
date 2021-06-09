@@ -6,11 +6,11 @@ const FooterBar = () => {
     <footer className="flex justify-center px-4 text-white bg-gradient-to-r from-red-500 to-red-700">
       <div className=" py-6 max-w-7xl mx-auto">
         <div className="text-md font-bold  lg:text-2xl text-center">◉ Disclamier ◉</div>
-        <h1 className="text-md font-bold text-center lg:text-md">
+        <h6 className="text-md font-bold text-center lg:text-md">
           All company names or logos are ® trademarks of their respective holders. The use of them
           does not imply any affiliation with or endorsement by them & we don't host any copyright
           images or videos on this website, all rights belong to their respective owners.
-        </h1>
+        </h6>
 
         <hr className="h-px mt-6 " />
 
