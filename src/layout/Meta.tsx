@@ -8,7 +8,10 @@ type IMetaProps = {
   title: string;
   description: string;
   canonical?: string;
+  ogimg?: ogTag;
+  keyword?: string;
 };
+type ogTag = { url: string; alt: string; height: number; width: number };
 
 const Meta = (props: IMetaProps) => (
   <>
@@ -31,6 +34,8 @@ const Meta = (props: IMetaProps) => (
       <meta name="msapplication-TileColor" content="#ef4444" />
       <meta name="msapplication-TileImage" content="/ms-icon-144x144.png" />
       <meta name="theme-color" content="#ef4444" />
+      <meta name="language" content="English" />
+      {props.keyword != undefined ? <meta name="keywords" content={props.keyword} /> : <></>}
     </Head>
     <NextSeo
       title={props.title}
@@ -40,6 +45,14 @@ const Meta = (props: IMetaProps) => (
         title: props.title,
         description: props.description,
         url: props.canonical,
+        images: [
+          {
+            url: props.ogimg?.url as string,
+            alt: props.ogimg?.url as string,
+            height: props.ogimg?.height as number,
+            width: props.ogimg?.width as number,
+          },
+        ],
         locale: Config.locale,
         site_name: Config.site_name,
       }}

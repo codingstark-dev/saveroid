@@ -63,7 +63,10 @@ const Dlform = (props: defautlProps) => {
           router.push('/tools/' + supportedUrl[index].route + `?dl=${encodeURIComponent(Textval)}`);
         } else if (bool.filter((e) => e === false).length === indexsint) {
           router.push('/invalid-url' + `?url=${encodeURIComponent(Textval)}`);
-        }
+        } 
+        // else {
+        //   router.push('/invalid-url' + `?url=${encodeURIComponent(Textval??"Empty Box")}`);
+        // }
       });
     });
   };

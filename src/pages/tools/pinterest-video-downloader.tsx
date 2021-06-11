@@ -15,6 +15,7 @@ const pinterest = () => {
   let getPinData = (id: string) => {
     if (id != undefined) {
       if (id.includes('pin.it')) {
+        setLoading(true);
         var configExpandUrl: AxiosRequestConfig = {
           method: 'get',
           url: 'https://api.saveroid.com/expandurl',
@@ -25,7 +26,6 @@ const pinterest = () => {
         return axios(configExpandUrl)
           .then((result) => {
             if (JSON.stringify(result.data) !== '{}' && result.data != null && result.data != '') {
-              setLoading(true);
               const pinID = result.data.split('/')[4];
 
               var config1: AxiosRequestConfig = {
@@ -220,7 +220,6 @@ const pinterest = () => {
               <div key={index}>
                 <div className="flex justify-center mx-10 items-center content-center m-6">
                   <img
-                    
                     src={e.url}
                     className="w-auto rounded-lg shadow-lg focus:outline-transparent "
                   />{' '}

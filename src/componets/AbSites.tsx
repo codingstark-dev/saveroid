@@ -5,12 +5,12 @@ const AbSites = () => {
     <div>
       <div className="text-center">
         <hr className="w-10 m-auto" />
-        <h5 className="text-2xl px-2 text-current items-center font-medium">
+        <h3 className="text-2xl px-2 text-current items-center font-medium">
           <span className="tracking-wide">【</span>
           <span className="text-red-500 tracking-wide"> Supported </span>
           <span>Sites </span>
           <span className="tracking-wide text-red-500">】</span>
-        </h5>
+        </h3>
         <hr className="w-10 m-auto mt-2" />
       </div>
       <br />

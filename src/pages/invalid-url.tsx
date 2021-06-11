@@ -11,8 +11,9 @@ const invalid = () => {
       <Main
         meta={
           <Meta
-            title="Next.js Boilerplate Presentation"
-            description="Next js Boilerplate is the perfect starter code for your project. Build your React application with the Next.js framework."
+            title="Invalid Url - SaveRoid"
+            canonical={typeof window !== 'undefined' ? window.location.href : ''}
+            description="Invalid Url - SaveRoid"
           />
         }
         dlform={true}
@@ -25,7 +26,8 @@ const invalid = () => {
           role="alert"
         >
           <p className="break-words">
-            Invalid Url!! <b>{router.query.url}</b>. Check Supported Sites ⇣ Below.
+            Invalid Url!! <b>{router.query.url}</b>. Check Supported Sites ⇣ Below or{' '}
+            <b> Sometime Tools Does Not Work So Please Try Again By Pasting Link On The Box</b>
           </p>
         </div>
         <br />

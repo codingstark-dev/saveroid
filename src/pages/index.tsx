@@ -9,8 +9,18 @@ const Index = () => {
       <Main
         meta={
           <Meta
-            title="Next.js Boilerplate Presentation"
-            description="Next js Boilerplate is the perfect starter code for your project. Build your React application with the Next.js framework."
+            title="SaveRoid ⇣ - All in One Video Downloader for free 2021"
+            description="Download your favorite site videos free with SaveRoid with many features - All in One Video Downloader for free 2021"
+            canonical={typeof window !== 'undefined' ? window.location.href : ''}
+            ogimg={{
+              url: 'https://saveroid.com/android-icon-192x192.png',
+              width: 192,
+              height: 192,
+              alt: 'SaveRoid - All in one downloader',
+            }}
+            keyword={
+              'SaveRoid, Save Roid, Pinterest Video Downloader, Instagram Reels Downloader, Pinterest Story Downloader'
+            }
           />
         }
         dlform={true}
