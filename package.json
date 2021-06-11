@@ -3,7 +3,7 @@
   "version": "1.0.0",
   "scripts": {
     "dev": "next --port 8080 && next-sitemap",
-    "build": "next-sitemap && next build",
+    "build": "next build",
     "start": "next start",
     "build-stats": "ANALYZE=true npm run build",
     "export": "next export -o dist",
@@ -16,7 +16,6 @@
     "@badrap/bar-of-progress": "^0.1.2",
     "@tailwindcss/typography": "^0.4.1",
     "axios": "^0.21.1",
-    "globby": "^11.0.3",
     "next": "^10.2.0",
     "next-seo": "^4.24.0",
     "react": "^17.0.2",
