@@ -1,5 +1,4 @@
 import React from 'react';
-import Link from 'next/link';
 const AbSites = () => {
   return (
     <div>
@@ -19,7 +18,7 @@ const AbSites = () => {
           className="mx-2 relative px-4 py-3 shadow-inner leading-normal text-red-700 bg-red-100 rounded-lg"
           role="alert"
         >
-          <Link href="/tools/pinterest-video-downloader">
+          <a href="/tools/pinterest-video-downloader">
             <div className="flex m-auto text-center items-center">
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -43,7 +42,7 @@ const AbSites = () => {
               </svg>
               <span className="pl-5">Pinterest</span>
             </div>
-          </Link>
+          </a>
         </div>
         <div
           className="mx-2 relative px-4 py-3 shadow-inner leading-normal text-red-700 bg-red-100 rounded-lg"

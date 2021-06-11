@@ -1,7 +1,7 @@
 module.exports = {
   purge: ['./src/**/*.{js,ts,jsx,tsx}'],
   darkMode: false,
-  mode:'jit',
+  mode: 'jit',
   theme: {
     // fontSize: {
     //   xs: '0.75rem',
@@ -43,5 +43,5 @@ module.exports = {
     // },
   },
   variants: {},
-  plugins: [],
+  plugins: [require('@tailwindcss/typography')],
 };

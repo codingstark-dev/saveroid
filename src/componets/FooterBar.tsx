@@ -27,25 +27,25 @@ const FooterBar = () => {
           <div className=" mt-4 md:m-0">
             <div className="-mx-4 ">
               <a
-                href="#"
+                href="/dmca"
                 className="px-2 text-sm font-medium text-white hover:text-gray-700 dark:hover:text-gray-400 hover:underline"
               >
                 DMCA
               </a>
               <a
-                href="#"
+                href="/disclaimer"
                 className="px-4 text-sm font-medium text-white dark:text-gray-200 hover:text-gray-700 dark:hover:text-gray-400 hover:underline"
               >
                 Disclamier
               </a>
               <a
-                href="#"
+                href="/privacy-policy"
                 className="px-2 text-sm font-medium text-white dark:text-gray-200 hover:text-gray-700 dark:hover:text-gray-400 hover:underline"
               >
                 Privacy Policy
               </a>
               <a
-                href="#"
+                href="mailto:himanshu.debug@yahoo.com" target="_blank"
                 className="px-2 text-sm font-medium text-white dark:text-gray-200 hover:text-gray-700 dark:hover:text-gray-400 hover:underline"
               >
                 Contact
