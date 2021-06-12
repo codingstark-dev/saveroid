@@ -9,8 +9,8 @@ const disclaimer = () => {
       <Main
         meta={
           <Meta
-            title="Disclaimer | SaveRoid ⇣ - All in One Video Downloader"
-            description="Disclaimer | SaveRoid ⇣ - All in One Video Downloader"
+            title="DMCA | SaveRoid ⇣ - All in One Video Downloader"
+            description="DMCA | SaveRoid ⇣ - All in One Video Downloader"
             canonical={typeof window !== 'undefined' ? window.location.href : ''}
             ogimg={{
               url: 'https://saveroid.com/android-icon-192x192.png',
