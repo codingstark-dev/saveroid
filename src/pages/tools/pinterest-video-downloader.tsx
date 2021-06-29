@@ -377,7 +377,7 @@ const pinterest = () => {
           <h2>Pinterest For Business</h2>
           <p>
             Find out how to use{' '}
-            <a href="https://business.pinterest.com/" rel="nofollow">
+            <a href="https://business.pinterest.com">
               {' '}
               Pinterest for business
             </a>
